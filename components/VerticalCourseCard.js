@@ -1,7 +1,7 @@
 import React from "react";
 import { TouchableOpacity, Text, Image, View } from "react-native";
-import IconButton from "./IconButton";
 
+import IconLabel from "./IconLabel";
 import { SIZES, FONTS, COLORS, icons } from "../constants";
 
 const VerticalCourseCard = ({ contentContainerStyle, course }) => {
@@ -64,7 +64,8 @@ const VerticalCourseCard = ({ contentContainerStyle, course }) => {
           <Text style={{ paddingTop: SIZES.padding, ...FONTS.h3 }}>
             {course.title}
           </Text>
-          <View
+          <IconLabel icon={icons.time} label={course.duration} />
+          {/* <View
             style={{
               flexDirection: "row",
               height: 30,
@@ -86,7 +87,7 @@ const VerticalCourseCard = ({ contentContainerStyle, course }) => {
             >
               {course.duration}
             </Text>
-          </View>
+          </View> */}
         </View>
       </View>
     </TouchableOpacity>

@@ -15,36 +15,27 @@ import {
   IconButton,
   TextButton,
   VerticalCourseCard,
+  HorizontalCourseCard,
   LineDivider,
+  CategoryCard,
 } from "../../components";
 
-const Section = ({ containerStyle, title, children, onPress }) => {
+const Section = ({ containerStyle, title, onPress, children }) => {
   return (
-    <View
-      style={{
-        height: 45,
-        justifyContent: "center",
-        alignItems: "center",
-        ...containerStyle,
-      }}
-    >
-      <View
-        style={{
-          flexDirection: "row",
-          paddingHorizontal: SIZES.padding,
-          paddingVertical: 5,
-        }}
-      >
+    <View style={{ ...containerStyle }}>
+      <View style={{ flexDirection: "row", paddingHorizontal: SIZES.padding }}>
         <Text style={{ flex: 1, ...FONTS.h2 }}>{title}</Text>
         <TextButton
-          label={"See All"}
           contentContainerStyle={{
-            paddingHorizontal: SIZES.padding,
-            borderRadius: 25,
-            height: 32,
+            width: 80,
+            borderRadius: 30,
+            backgroundColor: COLORS.primary,
           }}
+          label="See All"
+          onPress={onPress}
         />
       </View>
+      {children}
     </View>
   );
 };
@@ -162,6 +153,63 @@ const Home = () => {
     );
   }
 
+  function renderCategories() {
+    return (
+      <Section title={"Categories"}>
+        <FlatList
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          data={dummyData.categories}
+          listKey="Categories"
+          keyExtractor={(item) => `Categories-${item.id}`}
+          contentContainerStyle={{ marginTop: SIZES.padding }}
+          renderItem={({ item, index }) => (
+            <CategoryCard
+              category={item}
+              containerStyle={{
+                marginLeft: index == 0 ? SIZES.padding : SIZES.base,
+                marginRight:
+                  index == dummyData.categories.length - 1 ? SIZES.padding : 0,
+              }}
+            />
+          )}
+        />
+      </Section>
+    );
+  }
+
+  function renderPopularCourses() {
+    return (
+      <Section
+        title={"Popular Courses"}
+        containerStyle={{ marginTop: SIZES.padding }}
+      >
+        <FlatList
+          data={dummyData.courses_list_2}
+          showsVerticalScrollIndicator={false}
+          scrollEnabled={false}
+          listKey="PopularCourses"
+          keyExtractor={(item) => `PopularCourses-${item.id}`}
+          contentContainerStyle={{
+            marginTop: SIZES.radius,
+            paddingHorizontal: SIZES.padding,
+          }}
+          renderItem={({ item, index }) => (
+            <HorizontalCourseCard
+              course={item}
+              containerStyle={{
+                marginTop: index == 0 ? 5 : SIZES.padding,
+              }}
+            />
+          )}
+          ItemSeparatorComponent={() => (
+            <LineDivider lineStyle={{ backgroundColor: COLORS.gray20 }} />
+          )}
+        />
+      </Section>
+    );
+  }
+
   return (
     <View
       style={{
@@ -192,7 +240,10 @@ const Home = () => {
         />
 
         {/* Categories */}
-        <Section title={"Categories"} />
+        {renderCategories()}
+
+        {/* Popular Courses */}
+        {renderPopularCourses()}
       </ScrollView>
     </View>
   );
