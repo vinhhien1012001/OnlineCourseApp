@@ -6,6 +6,8 @@ import CategoryCard from "./CategoryCard";
 import IconLabel from "./IconLabel";
 import HorizontalCourseCard from "./HorizontalCourseCard";
 import TopSearchCard from "./TopSearchCard";
+import ProfileValue from "./ProfileValue";
+import ProfileRadioButton from "./ProfileRadioButton";
 
 export {
   TopSearchCard,
@@ -16,4 +18,6 @@ export {
   LineDivider,
   CategoryCard,
   IconLabel,
+  ProfileValue,
+  ProfileRadioButton,
 };
